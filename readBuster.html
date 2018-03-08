@@ -1,0 +1,87 @@
+<!--
+<?php
+  
+    session_start();
+    
+    if (!$_SESSION["logged"]){
+        header("Location: login.html");
+    }
+?> 
+-->
+
+<!DOCTYPE html>
+<html>
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>readBuster-Welcome Page</title>     
+	<link rel="stylesheet" href="readBusterActive.css">
+	<link href='https://fonts.googleapis.com/css?family=Barlow Condensed' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+
+<div class="tab"> readBuster
+  <button class="tablinks" onclick="location.href='BookForSell.php'" id="defaultOpen">Sell Books</button>
+  <!-- <button class="tablinks" onclick="location.href='login.html'">Login</button> -->
+  <button class="tablinks" onclick="openElement(event, 'ContactUs')">Contact Us</button>
+</div>
+
+<!--<button class="tablinks" onclick="location.href='profile.php'" id="defaultOpen">Profile</button> -->
+
+  <div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn"><?php echo $_SESSION["username"] ?></button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="profile.php">My Profile</a>
+    <a href="logout.php">Log Out</a>
+  </div>
+</div>
+
+
+<br><br><br><br><br><br>
+<form class="example" action="BookView.php" style="margin:auto;max-width:300px">
+  <input type="text" placeholder="Search by Book Title or Author Name.." name="search2">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+
+<div class="footer">
+  <div id="footer-info">
+      <p>Copyright 2018 readBuster All rights reserved.</p>
+      <p><a href="#">Terms of Service</a> I <a href="#">Privacy</a></p>
+  </div>
+  <div id="footer-links">
+  				<a href="#">About Us</a>
+  				<a href="#">Meet The Team</a>						
+      <div class="clear"></div>
+  </div>
+</div>
+
+<script>
+<!-- When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */ -->
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+<!--Close the dropdown if the user clicks outside of it -->
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+</body>
+</html>
+
+
