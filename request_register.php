@@ -1,36 +1,32 @@
 
 <?php
-require_once('path.inc');
-require_once('get_host_info.inc');
-require_once('rabbitMQLib.inc');
+	require_once('path.inc');
+	require_once('get_host_info.inc');
+	require_once('rabbitMQLib.inc');
+	require_once('testRabbitMQClient.php');
 
-$firstname = ($_POST['firstname']);
-$lastname= ($_POST['lastname']);
-$email= ($_POST['email']);
-$password= ($_POST['password']);
+	$request = array();
 
-$client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+	$request['type'] = "register";
+	$request['username'] = $_POST["username"];
+	$request['firstname'] = $_POST["firstname"];
+	$request['lastname'] = $_POST["lastname"];
+	$request['email'] = $_POST["email"];
+	$request['password'] = $_POST["password"];
 
-$request = array();
+	$returnResponse = dbClient($request);
 
-$request['type'] = "register";
-$request['firstname'] = "$firstname";
-$request['lastname'] = "$lastname";
-$request['username'] = "$username";
-$request['password'] = "$password";
-$request['email'] = "$email";
+	if ($returnResponse == "True")
+	{
+		header("Location: login.html");
+	}
 
-$response = $client->send_request($request);
-
-if ($response['returnCode'] == 1)
-{
-	header('Location: login.html');
-}
-
-else
-{
-	print_r($response);
-}
+	else
+	{
+		echo "Registration failed ! Please try again!";
+		header("Location: register.html");
+		 
+	}
 
 
 ?>

@@ -13,7 +13,7 @@
     require_once('rabbitMQLib.inc');
     require_once('testRabbitMQClient.php');
 	
-	  $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
+    $client = new rabbitMQClient("testRabbitMQ.ini","testServer");
 	
     $request = array();
     $request['type'] = "login";

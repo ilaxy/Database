@@ -1,37 +1,39 @@
 <?php
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(E_ALL);	
 
-require_once('path.inc');
-require_once('get_host_info.inc');
-require_once('rabbitMQLib.inc');  
+	session_start();
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+	require_once('path.inc');
+	require_once('get_host_info.inc');
+	require_once('rabbitMQLib.inc');  
+	require_once('testRabbitMQClient.php');
 
-echo $username + " " + $password;
+	$request = array();
 
-$client = new rabbitMQClient("testRabbitMQ.ini", "testServer");
+	$request['type'] = "login";
+	$request['username'] = $_POST['username'];
+	$request['password'] = $_POST['password'];
 
-$request = array();
+	//echo $request['username'] + " " + $request['password'];
 
-$request['type'] = "login";
-$request['username'] = $username;
-$request['password'] = $password;
+	$returnResponse = dbClient($request);
 
-$response = $client->send_request($request);
+	if ($returnResponse == "True")
+	{
+		echo "hello";
+		$_SESSION["username"] = $_POST["username"];
+		$_SESSION["logged"] = true;
 
-if ($response['returnCode'] == "True")
-{
-	$_SESSION["username"] = $_POST["username"];
-	$_SESSION["logged"] = true;
+		header("Location: readBuster.html");
+	}
 
-	header("Location: readBuster.html");
-}
-
-else
-{
-	header("Location: login.html");
-	 
-}
+	else
+	{
+		header("Location: login.html");
+		 
+	}
 
 ?>
 
